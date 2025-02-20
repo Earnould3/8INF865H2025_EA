@@ -5,10 +5,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import com.example.unscramble.data.allWords
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 
 
 
 class GameViewModel : ViewModel() {
+    var userGuess by mutableStateOf("")
+        private set
     // Game UI state
 
     // Backing property to avoid state updates from other classes
@@ -42,6 +47,10 @@ class GameViewModel : ViewModel() {
             tempWord.shuffle()
         }
         return String(tempWord)
+    }
+
+    fun updateUserGuess(guessedWord: String){
+        userGuess = guessedWord
     }
 
     fun resetGame() {
