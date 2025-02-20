@@ -81,6 +81,7 @@ fun GameScreen(
         GameLayout(
             currentScrambledWord = gameUiState.currentScrambledWord,
             userGuess = gameViewModel.userGuess,
+            wordCount = gameUiState.currentWordCount,
             onUserGuessChanged = { gameViewModel.updateUserGuess(it) },
             onKeyboardDone = { gameViewModel.checkUserGuess() },
             isGuessWrong = gameUiState.isGuessedWordWrong,
@@ -114,8 +115,7 @@ fun GameScreen(
             }
         }
 
-        GameStatus(score = 0, modifier = Modifier.padding(20.dp))
-    }
+        GameStatus(score = gameUiState.score, modifier = Modifier.padding(20.dp))    }
 }
 
 @Composable
@@ -137,6 +137,7 @@ fun GameLayout(
     isGuessWrong: Boolean,
     userGuess: String,
     onKeyboardDone: () -> Unit,
+    wordCount: Int,
     currentScrambledWord: String,
     modifier: Modifier = Modifier
 ) {
@@ -168,7 +169,7 @@ fun GameLayout(
                 modifier = modifier.align(Alignment.CenterHorizontally)
             )
             Text(
-                text = stringResource(R.string.instructions),
+                text = stringResource(R.string.word_count, wordCount),
                 textAlign = TextAlign.Center,
                 style = typography.titleMedium
             )
